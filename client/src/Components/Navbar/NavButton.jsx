@@ -1,80 +1,91 @@
 import React, { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 
-const NavButton = ({ set }) => {
+const NavButton = (props) => {
   const buttonRef = useRef(null);
   const componentRef = useRef(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const selectorRef = useRef(null);
+
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        componentRef.current &&
-        !componentRef.current.contains(event.target)
-      ) {
-        setDropdownOpen(false);
-        handleMouseLeave();
-      }
+    if (!props.active) {
+      buttonRef.current.addEventListener(
+        "mouseenter",
+        handleShortSelectorAppear
+      );
+      buttonRef.current.addEventListener(
+        "mouseleave",
+        handleShortSelectorDisappear
+      );
+      handleShortSelectorDisappear();
     }
-
-    document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      if (!props.active) {
+        buttonRef.current.removeEventListener(
+          "mouseenter",
+          handleShortSelectorAppear
+        );
+        buttonRef.current.removeEventListener(
+          "mouseleave",
+          handleShortSelectorDisappear
+        );
+      }
     };
-  }, []);
-
-  const style = {
-    backgroundImage: `url(${set.img})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
+  }, [props.active]);
 
   const handleMouseEnter = () => {
-    gsap.to(buttonRef.current, { borderRadius: "16px", duration: 0.3 });
+    gsap.to(buttonRef.current, {
+      borderRadius: "99px",
+      backgroundColor: "#0075fb",
+      duration: 0.3,
+    });
   };
 
   const handleMouseLeave = () => {
-    if (!dropdownOpen)
-      gsap.to(buttonRef.current, { borderRadius: "99px", duration: 0.3 });
+      gsap.to(buttonRef.current, {
+        borderRadius: "99px",
+        backgroundColor: "",
+        duration: 0.3,
+      });
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleShortSelectorAppear = () => {
+    gsap.to(selectorRef.current, { height: "30%", duration: 0.3 });
+  };
+
+  const handleShortSelectorDisappear = () => {
+    gsap.to(selectorRef.current, { height: "10%", duration: 0.3 });
   };
 
   return (
-    <div ref={componentRef}>
-      <div className="dropdown dropdown-top">
-        <button
-          ref={buttonRef}
-          className="nav-button"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onClick={set.type === "profile" ? toggleDropdown : null}
-          tabIndex={0}
-          role="button"
-          style={style}
-        >
-          {set.icon && (
-            <span className="material-symbols-outlined filled p-2">
-              {set.icon}
-            </span>
-          )}
-        </button>
-        {set.type === "profile" ? (
-          <ul tabIndex={0} className="nav-dropdown">
-            <li>
-              <a className="flex justify-between">
-                User Settings{" "}
-                <span className="material-symbols-outlined filled text-base">
-                  settings
-                </span>
-              </a>
-            </li>
-          </ul>
-        ) : null}
-      </div>
+    <div
+      ref={componentRef}
+      className="flex justify-center items-center w-full relative"
+    >
+      <div
+        ref={selectorRef}
+        className={`dark:bg-white bg-cod-gray-900 w-1 absolute rounded-xl -left-0 ${
+          props.active ? "h-8" : "h-2"
+        }`}
+      ></div>
+      <button
+        ref={buttonRef}
+        className={`nav-button my-2 tooltip tooltip-right ${
+          props.active ? "bg-accent" : null
+        }`}
+        data-tip={props.set.type[0].toUpperCase() + props.set.type.substring(1)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => props.handleClick(props.set.type)} // Change props.handleClick to props.onClick
+        tabIndex={0}
+        role="button"
+      >
+        {props.set.icon && (
+          <span className="material-symbols-outlined filled dark:text-white text-cod-gray-950 p-2">
+            {props.set.icon}
+          </span>
+        )}
+      </button>
     </div>
   );
 };
