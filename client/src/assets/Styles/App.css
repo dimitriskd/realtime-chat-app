@@ -48,14 +48,22 @@ html {
 }
 
 .nav-button {
-  @apply p-1 bg-accent w-14 h-14 rounded-full text-white text-2xl flex items-center justify-center;
+  @apply p-1  w-14 h-14 rounded-full text-white text-2xl flex items-center justify-center;
 }
 
 .nav-dropdown {
-  @apply dropdown-content z-[1] menu p-2 shadow border border-cod-gray-700 bg-cod-gray-950 text-white rounded-box w-40 mb-1 font-medium;
+  @apply dropdown-content z-[1] menu p-2 shadow border border-cod-gray-700 bg-white dark:bg-cod-gray-950 dark:text-white rounded-box w-fit mb-1 font-medium;
 }
 
 .window-size {
   width: calc(100vw - 6.5rem);
   height: calc(100vh - 1.5rem);
+}
+
+.input {
+  @apply p-4 w-full rounded-2xl bg-cod-gray-950 focus:outline-none focus:ring-1 focus:ring-accent indent-2 text-xl;
+}
+
+.button {
+  @apply btn hover:bg-accent text-white bg-cod-gray-950 text-xl;
 }

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import "./assets/Styles/App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import LoadingScreen from "./utils/LoadingScreen";
-import Theme from "./utils/Theme"
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -20,12 +21,11 @@ export default function App() {
   }
 
   return (
-    <main className="flex md:flex-row">
+    <main className="flex h-screen md:flex-row">
       <Navbar />
-      {/* <Theme /> */}
       <section className="h-full">
-        <div className="window-size mt-4 bg-shark-200 dark:bg-darkBg rounded-2xl">
-        </div>
+        {/* <Home /> */}
+        <Login />
       </section>
       {/* <LoadingScreen /> */}
     </main>

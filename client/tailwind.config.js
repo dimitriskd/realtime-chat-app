@@ -10,6 +10,7 @@ export default {
         daccent: "var(--daccent)",
         alter: "var(--alter)",
         darkBg: "var(--darkBg)",
+        chatsBg: "#1b1b1b",
         shark: {
           50: "#f6f6f6",
           100: "#e7e7e7",

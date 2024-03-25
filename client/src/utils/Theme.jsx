@@ -9,7 +9,6 @@ export default function Theme() {
   );
 
   useEffect(() => {
-    // Add event listener to handle theme change
     const handleThemeChange = () => {
       setSelected(document.querySelector("html").getAttribute("data-theme"));
     };
@@ -24,7 +23,7 @@ export default function Theme() {
   return (
     <div className="font-bold w-fit">
       <button
-        className={`w-fit p-2 mr-3 rounded-xl ${
+        className={`w-fit p-2 mr-3 rounded-full ${
           selected === "light"
             ? "border-accent"
             : "border-shark-600"
@@ -36,12 +35,12 @@ export default function Theme() {
         data-set-theme="light"
         data-act-class="ACTIVECLASS"
       >
-        <div className="w-10 h-10"></div>
+        <div className="w-4 h-4"></div>
         <p className="hidden">Light Mode</p>
-        <span className="material-symbols-outlined filled bg-accent rounded-full block dark:hidden absolute text-white -top-2 -right-0">check</span>
+        <span className="material-symbols-outlined filled bg-accent rounded-full block dark:hidden absolute text-white h-4 w-4 text-xs -top-2 -right-1">check</span>
       </button>
       <button
-        className={`w-fit p-2 rounded-xl ${
+        className={`w-fit p-2 rounded-full ${
           selected === "dark"
             ? "border-accent"
             : "border-shark-600"
@@ -53,9 +52,9 @@ export default function Theme() {
         data-set-theme="dark"
         data-act-class="ACTIVECLASS"
       >
-        <div className="w-10 h-10"></div>
+        <div className="w-4 h-4 rounded-full"></div>
         <p className="hidden">Dark Mode</p>
-        <span className="material-symbols-outlined filled bg-accent rounded-full hidden dark:block absolute text-white -top-2 -right-0">check</span>
+        <span className="material-symbols-outlined filled bg-accent rounded-full hidden dark:block absolute text-white h-4 w-4 text-xs -top-2 -right-1">check</span>
       </button>
     </div>
   );
