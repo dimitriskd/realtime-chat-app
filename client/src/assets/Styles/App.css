@@ -28,7 +28,6 @@ html {
   font-weight: 400;
   font-style: normal;
   background-color: var(--color-default);
-  /* overflow: hidden */
 }
 
 .selected-color {
@@ -61,9 +60,26 @@ html {
 }
 
 .input {
-  @apply p-4 w-full rounded-2xl bg-cod-gray-950 focus:outline-none focus:ring-1 focus:ring-accent indent-2 text-xl;
+  @apply p-4 w-full h-14 rounded-2xl bg-white dark:bg-cod-gray-950 focus:outline-none focus:ring-1 focus:ring-accent indent-2 text-xl;
+}
+
+.input-sent {
+  @apply p-4 w-full h-14 rounded-2xl bg-white dark:bg-cod-gray-950 focus:outline-none focus:ring-1 focus:ring-accent text-xl;
 }
 
 .button {
   @apply btn hover:bg-accent text-white bg-cod-gray-950 text-xl;
+}
+
+.button-sent {
+  @apply btn btn-circle hover:bg-accent border-none text-cod-gray-950 dark:text-white bg-shark-200 dark:bg-cod-gray-950 text-xl m-1;
+}
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #0075fb #4f4f4f;
+}
+
+.chat-container {
+  height: calc(100% - 10rem );
 }

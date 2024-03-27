@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "gsap": "^3.12.5",
+    "nanoid": "^5.0.6",
     "primereact": "^10.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.2",
     "theme-change": "^2.5.0"
   },
   "devDependencies": {

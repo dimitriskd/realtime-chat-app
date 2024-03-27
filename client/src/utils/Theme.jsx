@@ -21,7 +21,7 @@ export default function Theme() {
   }, []);
 
   return (
-    <div className="font-bold w-fit">
+    <div className="font-bold w-fit flex">
       <button
         className={`w-fit p-2 mr-3 rounded-full ${
           selected === "light"
