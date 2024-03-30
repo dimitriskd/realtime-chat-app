@@ -1,6 +1,6 @@
 export default function ChatHeader(props) {
     return (
-        <div className="w-full h-20 bg-shark-300 dark:bg-chatsBg dark:text-white flex justify-between items-center p-3 shadow-lg rounded-tr-2xl z-50">
+        <div className="w-full h-20 bg-shark-100 dark:bg-chatsBg dark:text-white flex justify-between items-center p-3 shadow-lg rounded-tr-2xl z-50">
           <div className="flex justify-between items-center">
               <div className="avatar online">
                 <div className="w-14 rounded-full">

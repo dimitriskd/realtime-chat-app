@@ -3,13 +3,14 @@ import NavButton from "./NavButton";
 import Profile from "./Profile";
 import ThemeButton from "./ThemeButton";
 import profilePic from "../../assets/images/profile.jpg";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [activeButton, setActiveButton] = useState("home");
 
   const settings = { type: "settings", icon: "settings" },
     friends = { type: "friends", icon: "group" },
-    home = { type: "home", icon: "home" },
+    home = { type: "home", icon: "forum" },
     profile = { type: "profile", img: profilePic };
 
   const handleButtonClick = (type) => {
@@ -23,7 +24,9 @@ export default function Navbar() {
       </h1>
       <nav className="flex flex-col justify-between items-center rounded-2xl w-full h-full">
         <div className="flex flex-col justify-center w-full h-full">
-          <NavButton set={home} active={activeButton === "home"} handleClick={handleButtonClick} />
+          <Link to="/">
+            <NavButton set={home} active={activeButton === "home"} handleClick={handleButtonClick} />
+          </Link>
           <NavButton set={friends} active={activeButton === "friends"} handleClick={handleButtonClick} />
           <NavButton set={settings} active={activeButton === "settings"} handleClick={handleButtonClick} />
         </div>

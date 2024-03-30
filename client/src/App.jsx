@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/Styles/App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import LoadingScreen from "./utils/LoadingScreen";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
+import Chat from "./Pages/Chat";
+import Login from "./Pages/Login"
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -21,13 +22,15 @@ export default function App() {
   }
 
   return (
-    <main className="flex h-screen md:flex-row">
-      <Navbar />
-      <section className="h-full">
-        {/* <Home /> */}
-        <Login />
-      </section>
-      {/* <LoadingScreen /> */}
-    </main>
+    <BrowserRouter>
+      <div className="flex h-screen md:flex-row">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Chat />} />
+          <Route path="/login" element={<Login />} />
+          {/* Add more routes here */}
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }

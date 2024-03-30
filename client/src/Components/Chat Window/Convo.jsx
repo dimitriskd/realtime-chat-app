@@ -21,7 +21,7 @@ export default function Convo() {
       <ChatHeader />
       <div
         ref={chatContainerRef}
-        className="flex flex-col overflow-auto w-full h-full scrollbar chat-container py-3 scrollbar"
+        className="flex flex-col overflow-auto w-full h-full bg-shark-200 dark:bg-darkBg scrollbar chat-container py-3 scrollbar"
       >
         {[...Array(20)].map((_, index) => (
           <ReceivedBubble key={index} data={chat} />

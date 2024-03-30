@@ -31,9 +31,8 @@ export default function ChatInput() {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== name));
   };
 
-  console.log(files);
   return (
-    <div className="w-full min-h-20 bg-shark-300 dark:bg-chatsBg flex items-center p-3 shadow-lg rounded-br-2xl z-50">
+    <div className="w-full min-h-20 bg-shark-100 dark:bg-chatsBg flex items-center p-3 shadow-lg rounded-br-2xl z-50">
       <div className="flex items-center">
         <button className="button-sent" onClick={() => fileRef.current.click()}>
           <span className="material-symbols-outlined">attachment</span>
