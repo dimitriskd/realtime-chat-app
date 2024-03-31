@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const userRouter = require("./routes/user.router");
-const ApiRateLimiter = require("./middleware/attempts.middleware");
 
 dotenv.config();
 
@@ -24,7 +23,7 @@ db.once("open", () => {
 });
 
 // Routes
-app.use("/user", userRouter);
+app.use("/api/user", userRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
