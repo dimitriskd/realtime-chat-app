@@ -24,35 +24,7 @@ db.once("open", () => {
 });
 
 // Routes
-//Login
 app.use("/user", userRouter);
-
-// Register
-app.post("/register", async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-    // Check if the email already exists in the database
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: "Email already exists" });
-    }
-    // Create a new user instance
-    const newUser = new User({
-      username,
-      email,
-      password: bcrypt.hashSync(password, 10),
-      avatar: `https://api.dicebear.com/8.x/thumbs/svg?seed=${username}`,
-    });
-    // Save the user to the database
-    await newUser.save();
-    res
-      .status(201)
-      .json({ message: "User created successfully", user: newUser });
-  } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
