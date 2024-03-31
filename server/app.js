@@ -1,26 +1,33 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const md5 = require("md5");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const User = require("./models/users");
-const Conversation = require("./models/conversations");
+const bodyParser = require("body-parser");
+const userRouter = require("./routes/user.router");
+const ApiRateLimiter = require("./middleware/attempts.middleware");
 
 dotenv.config();
 
+// Create an Express app
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-const PORT = process.env.PORT || 3000;
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//connect to mongoDB
 const dbUrl = process.env.MONGODB_URI;
+mongoose.connect(dbUrl);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
 
-app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
-  });
+// Routes
+//Login
+app.use("/user", userRouter);
 
-// Route to handle POST request for creating a user
+// Register
 app.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -29,19 +36,15 @@ app.post("/register", async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: "Email already exists" });
     }
-
     // Create a new user instance
     const newUser = new User({
       username,
       email,
       password: bcrypt.hashSync(password, 10),
-      avatar: `https://www.gravatar.com/avatar/${md5(
-        email.trim().toLowerCase()
-      )}?d=identicon`,
+      avatar: `https://api.dicebear.com/8.x/thumbs/svg?seed=${username}`,
     });
     // Save the user to the database
     await newUser.save();
-
     res
       .status(201)
       .json({ message: "User created successfully", user: newUser });
@@ -51,28 +54,14 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res, next) => {
-  const { username, password } = req.body;
-  if (username !== "") {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res
-        .status(404)
-        .json({
-          error: "Error logging in. Check username and password and try again.",
-        });
-    } else {
-        if(bcrypt.compareSync(password, user.password)){
-            return res.json({success: "success"});//here will return session token
-        }
-    }
-  }
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
 });
 
-mongoose
-  .connect(dbUrl)
-  .then(() => {
-    console.log("MongoDB connected");
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((err) => console.error("Error connecting to MongoDB:", err));
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
