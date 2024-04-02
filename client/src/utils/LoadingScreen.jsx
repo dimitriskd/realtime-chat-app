@@ -34,15 +34,8 @@ export default function LoadingScreen() {
     };
   }, []); // Run once when the component mounts
 
-  useEffect(() => {
-    
-
-    // Wrap each character in a span with initial opacity 0 and font size 0
-    
-  }, []); // Run once when the component mounts
-
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center gap-20 absolute top-0 left-0 bg-white dark:bg-shark-950">
+    <div className="w-full h-full flex flex-col justify-center items-center gap-20 absolute top-0 left-0 bg-white dark:bg-shark-950 z-50">
       <h1
         ref={textRef}
         className="text-black dark:text-white font-bold tracking-tighter text-9xl"

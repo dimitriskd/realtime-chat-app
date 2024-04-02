@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Theme from "../../utils/Theme";
 import { gsap } from "gsap";
 
-const Profile = ({ set }) => {
+const Profile = ({ set, handleLogout }) => {
   const buttonRef = useRef(null);
   const componentRef = useRef(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,7 +49,7 @@ const Profile = ({ set }) => {
       <div className="dropdown dropdown-right">
         <button
           ref={buttonRef}
-          className="nav-button m-3 avatar online"
+          className="nav-button m-3 avatar"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={set.type === "profile" ? toggleDropdown : null}
@@ -64,11 +64,11 @@ const Profile = ({ set }) => {
         </button>
         {set.type === "profile" ? (
           <ul tabIndex={0} className="nav-dropdown">
-            <li>
+            <li onClick={ handleLogout }>
               <a className="flex justify-between w-36">
-                User Settings{" "}
+                Logout
                 <span className="material-symbols-outlined filled text-base">
-                  settings
+                  logout
                 </span>
               </a>
             </li>

@@ -20,7 +20,7 @@ const NavButton = (props) => {
       handleShortSelectorDisappear();
     }
     return () => {
-      if (!props.active) {
+      if (!props.active && buttonRef.current) {
         buttonRef.current.removeEventListener(
           "mouseenter",
           handleShortSelectorAppear

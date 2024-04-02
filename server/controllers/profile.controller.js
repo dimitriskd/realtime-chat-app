@@ -2,11 +2,11 @@ const User = require("../models/users");
 
 const profileController = async (req, res) => {
   try {
-    // Assuming you have a user ID available in the request object
-    const userId = req.userId; // Assuming userId is available in req object, adjust this based on your actual implementation
+    // Get the token from the cookies
+    const token = req.cookies.token;
 
-    // Fetch user details from the database
-    const user = await User.findById(userId);
+    // Fetch user details from the database using the token
+    const user = await User.findByToken(token);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });

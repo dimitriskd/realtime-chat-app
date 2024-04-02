@@ -2,16 +2,15 @@ import { useState } from "react";
 import NavButton from "./NavButton";
 import Profile from "./Profile";
 import ThemeButton from "./ThemeButton";
-import profilePic from "../../assets/images/profile.jpg";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ user, handleLogout }) {
   const [activeButton, setActiveButton] = useState("home");
 
   const settings = { type: "settings", icon: "settings" },
     friends = { type: "friends", icon: "group" },
     home = { type: "home", icon: "forum" },
-    profile = { type: "profile", img: profilePic };
+    profile = { type: "profile", img: user.avatar };
 
   const handleButtonClick = (type) => {
     setActiveButton(type);
@@ -32,7 +31,7 @@ export default function Navbar() {
         </div>
         <div className="flex flex-col items-center justify-center">
           <ThemeButton />
-          <Profile set={profile}/>
+          <Profile set={profile} handleLogout={handleLogout} />
         </div>
       </nav>
     </section>

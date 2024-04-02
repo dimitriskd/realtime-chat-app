@@ -17,6 +17,7 @@ const login = async (req, res) => {
 
     const token = user.generateAuthToken();
     await user.incrementLoginCount();
+    await user.statusOnline();
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -24,7 +25,9 @@ const login = async (req, res) => {
       secure: false,
     });
 
-    res.json({ message: "Login successful", status: 1 });
+    setTimeout(() => {
+      res.status(200).json({ message: "Login successful", status: 1 });
+    }, 2000);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });

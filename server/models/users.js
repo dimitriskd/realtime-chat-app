@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
   blocked_users: [{ type: String }],
   conversations: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Conversation" },
-  ]
+  ],
 });
 
 // Hash password before saving to database
@@ -64,6 +64,15 @@ userSchema.methods.comparePassword = async function (password) {
 // Increment login count when user logs in
 userSchema.methods.incrementLoginCount = async function () {
   this.loginCount += 1;
+  return await this.save();
+};
+
+userSchema.methods.statusOnline = async function () {
+  this.status = "online";
+  return await this.save();
+};
+userSchema.methods.statusOffline = async function () {
+  this.status = "offline";
   return await this.save();
 };
 
